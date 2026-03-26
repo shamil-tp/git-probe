@@ -17,7 +17,7 @@ export default function ProbeBar({ onSearchResult, setIsSearching }: ProbeBarPro
 
     return (
         <form action={handleSubmit}> {/* Use the wrapper function here */}
-            <div className="mt-10 flex w-full flex-col md:flex-row max-w-xl gap-3">
+            <div className="mt-10 flex w-[50vh] md:w-full flex-col md:flex-row max-w-xl gap-3">
                 <input
                     type="text"
                     name="username"
