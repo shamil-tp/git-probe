@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Link
+import Link from "next/link"
 
 type Props = {
   username: string
@@ -15,7 +15,7 @@ export default function UserSearchCard({
   repos,
 }: Props) {
   return (
-    <div className="max-w-xl mx-auto mt-5 flex items-center justify-between gap-3 bg-neutral-900 border border-neutral-800 rounded-lg px-5 py-4 hover:border-neutral-700 transition">
+    <Link href={`/probe/${username}`} className="max-w-xl mx-auto mt-5 flex items-center justify-between gap-3 bg-neutral-900 border border-neutral-800 rounded-lg px-5 py-4 hover:border-neutral-700 transition">
 
       {/* Left */}
       <div className="flex items-center gap-3">
@@ -53,6 +53,6 @@ export default function UserSearchCard({
 
       </div>
 
-    </div>
+    </Link>
   )
 }
