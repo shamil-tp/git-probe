@@ -3,73 +3,52 @@ import Image from "next/image"
 type Props = {
   username: string
   name?: string
-  bio?: string
   avatar: string
   repos: number
-  followers: number
-  onViewAnalytics?: () => void
 }
 
 export default function UserSearchCard({
   username,
   name,
-  bio,
   avatar,
   repos,
-  followers,
-  onViewAnalytics
 }: Props) {
   return (
-    <div className="max-w-xl mx-auto bg-neutral-900 border border-neutral-800 rounded-lg p-5 flex items-center justify-between">
+    <div className="max-w-xl mx-auto mt-5 flex items-center justify-between gap-3 bg-neutral-900 border border-neutral-800 rounded-lg px-5 py-4 hover:border-neutral-700 transition">
 
       {/* Left */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
 
         <Image
           src={avatar}
           alt="avatar"
-          width={48}
-          height={48}
+          width={44}
+          height={44}
           className="rounded-full"
         />
 
-        <div>
-          <p className="font-medium">
+        <div className="leading-tight">
+          <p className="text-sm font-medium">
             {name || username}
           </p>
 
           <p className="text-xs text-neutral-400">
             @{username}
           </p>
-
-          {bio && (
-            <p className="text-xs text-neutral-500 mt-1 max-w-[240px] truncate">
-              {bio}
-            </p>
-          )}
         </div>
 
       </div>
 
       {/* Right */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-2 bg-neutral-950 border border-neutral-800 rounded-md px-3 py-1.5">
 
-        <div className="text-center text-sm">
-          <p className="font-semibold">{repos}</p>
-          <p className="text-xs text-neutral-500">repos</p>
-        </div>
+        <p className="text-sm font-semibold">
+          {repos}
+        </p>
 
-        <div className="text-center text-sm">
-          <p className="font-semibold">{followers}</p>
-          <p className="text-xs text-neutral-500">followers</p>
-        </div>
-
-        <button
-          onClick={onViewAnalytics}
-          className="px-4 py-2 text-xs bg-neutral-800 rounded-md border border-neutral-700 hover:bg-neutral-700"
-        >
-          View Analytics
-        </button>
+        <p className="text-xs text-neutral-500">
+          repos
+        </p>
 
       </div>
 

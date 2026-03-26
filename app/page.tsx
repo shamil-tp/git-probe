@@ -8,7 +8,7 @@
 //           priority
 //         />
 import ProbeBar from "@/components/ProbeBar";
-import ProfilePreview from "@/components/ProfilePreview"
+// import ProfilePreview from "@/components/ProfilePreview"
 import UserSearchCard from "@/components/UserSearchCard";
 export default function Home() {
   return (
@@ -35,15 +35,15 @@ export default function Home() {
 
         {/* Search */}
         <ProbeBar/>
-        <ProfilePreview username={null}/>
+        {/* <ProfilePreview username={null}/> */}
         <UserSearchCard
   username="octocat"
   name="The Octocat"
-  bio="Open source developer"
+  // bio="Open source developer"
   avatar="https://avatars.githubusercontent.com/u/583231"
   repos={84}
-  followers={3100}
-  onViewAnalytics={() => setShowAnalytics(true)}
+  // followers={3100}
+  // onViewAnalytics={() => setShowAnalytics(true)}
 />
 
       </section>
