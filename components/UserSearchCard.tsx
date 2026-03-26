@@ -15,7 +15,7 @@ export default function UserSearchCard({
   repos,
 }: Props) {
   return (
-    <Link href={`/probe/${username}`} className="max-w-xl mx-auto mt-5 flex items-center justify-between gap-3 bg-neutral-900 border border-neutral-800 rounded-lg px-5 py-4 hover:border-neutral-700 transition">
+    <Link href={`/probe/${username}`} className="max-w-xl mx-auto mt-5 flex items-center w-[90vw] md:w-auto justify-between gap-3 bg-neutral-900 border border-neutral-800 rounded-lg px-5 py-4 hover:border-neutral-700 transition">
 
       {/* Left */}
       <div className="flex items-center gap-3">

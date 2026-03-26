@@ -33,7 +33,8 @@ export default function ProfilePreview({username}:{username:string | null}) {
 
 
       {/* Metadata */}
-      <div className="flex gap-6 text-sm text-neutral-400 mb-6">
+      {/* <div className="flex justify-between items-end md:justify-center gap-6 text-sm text-neutral-400 mb-6"> */}
+      <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-neutral-400 mb-6">
         <p>San Francisco</p>
         <p>github.blog</p>
         <p>Joined 2011</p>
@@ -41,29 +42,29 @@ export default function ProfilePreview({username}:{username:string | null}) {
 
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
 
-        <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
-          <p className="text-xs text-neutral-500">Repositories</p>
-          <p className="text-xl font-semibold mt-1">84</p>
-        </div>
+  <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
+    <p className="text-xs text-neutral-500">Repositories</p>
+    <p className="text-xl font-semibold mt-1">84</p>
+  </div>
 
-        <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
-          <p className="text-xs text-neutral-500">Stars</p>
-          <p className="text-xl font-semibold mt-1">12.4K</p>
-        </div>
+  <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
+    <p className="text-xs text-neutral-500">Stars</p>
+    <p className="text-xl font-semibold mt-1">12.4K</p>
+  </div>
 
-        <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
-          <p className="text-xs text-neutral-500">Followers</p>
-          <p className="text-xl font-semibold mt-1">3.1K</p>
-        </div>
+  <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
+    <p className="text-xs text-neutral-500">Followers</p>
+    <p className="text-xl font-semibold mt-1">3.1K</p>
+  </div>
 
-        <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
-          <p className="text-xs text-neutral-500">Following</p>
-          <p className="text-xl font-semibold mt-1">120</p>
-        </div>
+  <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
+    <p className="text-xs text-neutral-500">Following</p>
+    <p className="text-xl font-semibold mt-1">120</p>
+  </div>
 
-      </div>
+</div>
 
 
       {/* Language usage */}
