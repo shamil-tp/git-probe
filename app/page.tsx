@@ -7,7 +7,9 @@
 //           height={20}
 //           priority
 //         />
-
+import ProbeBar from "@/components/ProbeBar";
+import ProfilePreview from "@/components/ProfilePreview"
+import UserSearchCard from "@/components/UserSearchCard";
 export default function Home() {
   return (
     <main className="min-h-screen bg-neutral-950 text-neutral-100">
@@ -32,16 +34,17 @@ export default function Home() {
         </p>
 
         {/* Search */}
-        <div className="mt-10 flex w-full max-w-xl gap-3">
-          <input
-            type="text"
-            placeholder="Enter GitHub username"
-            className="flex-1 px-4 py-3 rounded-lg bg-neutral-900 border border-neutral-800 focus:outline-none focus:border-neutral-600"
-          />
-          <button className="px-6 py-3 rounded-lg bg-white text-black font-medium">
-            Probe
-          </button>
-        </div>
+        <ProbeBar/>
+        <ProfilePreview username={null}/>
+        <UserSearchCard
+  username="octocat"
+  name="The Octocat"
+  bio="Open source developer"
+  avatar="https://avatars.githubusercontent.com/u/583231"
+  repos={84}
+  followers={3100}
+  onViewAnalytics={() => setShowAnalytics(true)}
+/>
 
       </section>
 
