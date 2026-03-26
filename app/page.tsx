@@ -18,7 +18,7 @@ export default function Home() {
 
 
       {/* Hero */}
-      <section className="flex flex-col items-center justify-center text-center px-6 py-28 h-screen">
+      <section className="flex flex-col items-center justify-center text-center px-2 py-28 h-screen">
 
         <h1 className="text-5xl md:text-6xl font-bold tracking-tight max-w-3xl">
           Probe GitHub Profiles
