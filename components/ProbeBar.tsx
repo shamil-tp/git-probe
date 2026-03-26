@@ -17,15 +17,15 @@ export default function ProbeBar({ onSearchResult, setIsSearching }: ProbeBarPro
 
     return (
         <form action={handleSubmit}> {/* Use the wrapper function here */}
-            <div className="mt-10 flex w-full sm:flex-col md:flex-row lg:flex-row max-w-xl gap-3">
+            <div className="mt-10 flex w-full flex-col md:flex-row max-w-xl gap-3">
                 <input
                     type="text"
                     name="username"
                     required
                     placeholder="Enter GitHub username"
-                    className="flex-1 px-4 py-3 rounded-lg bg-neutral-900 border border-neutral-800 focus:outline-none focus:border-neutral-600"
+                    className="flex-1 w-full px-4 py-3 rounded-lg bg-neutral-900 border border-neutral-800 focus:outline-none focus:border-neutral-600"
                 />
-                <button type='submit' className="px-6 py-3 rounded-lg bg-white text-black font-medium flex items-center justify-center">
+                <button type='submit' className="px-6 py-3 rounded-lg w-full md:w-auto bg-white text-black font-medium flex items-center justify-center">
                     <SiGithub className='w-10 h-5 mr-2'/>Probe
                 </button>
             </div>
