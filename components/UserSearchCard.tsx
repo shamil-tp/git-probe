@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link
 
 type Props = {
   username: string

@@ -7,9 +7,8 @@
 //           height={20}
 //           priority
 //         />
-import ProbeBar from "@/components/ProbeBar";
+import SearchManager from "@/components/SearchManager"
 // import ProfilePreview from "@/components/ProfilePreview"
-import UserSearchCard from "@/components/UserSearchCard";
 export default function Home() {
   return (
     <main className="min-h-screen bg-neutral-950 text-neutral-100">
@@ -32,20 +31,8 @@ export default function Home() {
           Enter any GitHub username and GitProbe analyzes repositories,
           stars, languages, and developer activity in seconds.
         </p>
-
-        {/* Search */}
-        <ProbeBar/>
-        {/* <ProfilePreview username={null}/> */}
-        <UserSearchCard
-  username="octocat"
-  name="The Octocat"
-  // bio="Open source developer"
-  avatar="https://avatars.githubusercontent.com/u/583231"
-  repos={84}
-  // followers={3100}
-  // onViewAnalytics={() => setShowAnalytics(true)}
-/>
-
+        <SearchManager/>
+       
       </section>
 
 
