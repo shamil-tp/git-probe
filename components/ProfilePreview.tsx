@@ -4,7 +4,7 @@ type Props = {
   username: string | null,
   name: string | null,
   avatar_url: string | null,
-  html_url:string | null,
+  html_url:string,
   bio:string | null,
   blog:string | null,
   location:string | null,
@@ -12,10 +12,11 @@ type Props = {
   following:number,
   public_repo:number,
   public_gists:number,
+  created_at:Date
 
 }
 
-export default function ProfilePreview({username,name,avatar_url,html_url,bio,blog,location,followers,following,public_repo,public_gists}:Props) {
+export default function ProfilePreview({username,name,avatar_url,html_url,bio,blog,location,followers,following,public_repo,public_gists,created_at}:Props) {
   return (
     <div className="max-w-3xl mx-auto bg-neutral-900 border border-neutral-800 rounded-xl p-7 mt-5">
 
@@ -42,7 +43,7 @@ export default function ProfilePreview({username,name,avatar_url,html_url,bio,bl
           </div>
         </div>
 
-        <Link className="px-4 py-2 text-sm bg-neutral-800 rounded-lg border border-neutral-700 hover:bg-neutral-700">
+        <Link href={html_url} className="px-4 py-2 text-sm bg-neutral-800 rounded-lg border border-neutral-700 hover:bg-neutral-700">
           View Profile
         </Link>
 
@@ -52,9 +53,9 @@ export default function ProfilePreview({username,name,avatar_url,html_url,bio,bl
       {/* Metadata */}
       {/* <div className="flex justify-between items-end md:justify-center gap-6 text-sm text-neutral-400 mb-6"> */}
       <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-neutral-400 mb-6">
-        <p>San Francisco</p>
-        <p>github.blog</p>
-        <p>Joined 2011</p>
+        {location?<p>{location}</p>:<p>Not Available</p>}
+        {blog?<p>{blog}</p>:<p>Not Available</p>}
+        {new Date(created_at).getFullYear()}
       </div>
 
 
@@ -63,29 +64,35 @@ export default function ProfilePreview({username,name,avatar_url,html_url,bio,bl
 
   <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
     <p className="text-xs text-neutral-500">Repositories</p>
-    <p className="text-xl font-semibold mt-1">84</p>
+    <p className="text-xl font-semibold mt-1">{public_repo}</p>
   </div>
 
   <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
-    <p className="text-xs text-neutral-500">Stars</p>
-    <p className="text-xl font-semibold mt-1">12.4K</p>
+    <p className="text-xs text-neutral-500">Gists</p>
+    <p className="text-xl font-semibold mt-1">{public_gists}</p>
   </div>
 
   <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
     <p className="text-xs text-neutral-500">Followers</p>
-    <p className="text-xl font-semibold mt-1">3.1K</p>
+    <p className="text-xl font-semibold mt-1">{new Intl.NumberFormat('en-US', {
+  notation: 'compact',
+  maximumFractionDigits: 1
+}).format(followers)}</p>
   </div>
 
   <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
     <p className="text-xs text-neutral-500">Following</p>
-    <p className="text-xl font-semibold mt-1">120</p>
+    <p className="text-xl font-semibold mt-1">{new Intl.NumberFormat('en-US', {
+  notation: 'compact',
+  maximumFractionDigits: 1
+}).format(following)}</p>
   </div>
 
 </div>
 
 
       {/* Language usage */}
-      <div className="mb-8">
+      {/* <div className="mb-8">
 
         <p className="text-sm text-neutral-400 mb-3">Top Languages</p>
 
@@ -105,7 +112,7 @@ export default function ProfilePreview({username,name,avatar_url,html_url,bio,bl
           <span>Rust</span>
         </div>
 
-      </div>
+      </div> */}
 
 
       {/* Top repositories */}
