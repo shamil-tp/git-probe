@@ -3,20 +3,20 @@ import Link from "next/link"
 type Props = {
   username: string | null,
   name: string | null,
-  avatar_url: string | null,
+  avatar_url: string,
   html_url:string,
   bio:string | null,
   blog:string | null,
   location:string | null,
   followers:number,
   following:number,
-  public_repo:number,
-  public_gists:number,
+  public_repos:number | string | null,
+  public_gists:number | string | null,
   created_at:Date
 
 }
 
-export default function ProfilePreview({username,name,avatar_url,html_url,bio,blog,location,followers,following,public_repo,public_gists,created_at}:Props) {
+export default function ProfilePreview({username,name,avatar_url,html_url,bio,blog,location,followers,following,public_repos,public_gists,created_at}:Props) {
   return (
     <div className="max-w-3xl mx-auto bg-neutral-900 border border-neutral-800 rounded-xl p-7 mt-5">
 
@@ -25,7 +25,7 @@ export default function ProfilePreview({username,name,avatar_url,html_url,bio,bl
 
         <div className="flex items-center gap-4">
           <Image
-            src="https://avatars.githubusercontent.com/u/583231"
+            src={avatar_url}
             alt="profile image"
             className="rounded-full"
             height={"64"}
@@ -64,12 +64,12 @@ export default function ProfilePreview({username,name,avatar_url,html_url,bio,bl
 
   <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
     <p className="text-xs text-neutral-500">Repositories</p>
-    <p className="text-xl font-semibold mt-1">{public_repo}</p>
+    <p className="text-xl font-semibold mt-1">{public_repos?public_repos:0}</p>
   </div>
 
   <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
     <p className="text-xs text-neutral-500">Gists</p>
-    <p className="text-xl font-semibold mt-1">{public_gists}</p>
+    <p className="text-xl font-semibold mt-1">{public_gists?public_gists:0}</p>
   </div>
 
   <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">

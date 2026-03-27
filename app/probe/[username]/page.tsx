@@ -31,7 +31,20 @@ export default async function Probe({params}:{params:Promise<{username:string}>}
       {/* Hero */}
       <section className="flex flex-col items-center justify-center text-center px-6 py-28 h-screen">
 
-        <ProfilePreview username={githubData.login} />
+        <ProfilePreview 
+        username={githubData.login} 
+        name={githubData.name}
+        avatar_url={githubData.avatar_url}
+        html_url={githubData.html_url}
+        blog={githubData.blog}
+        location={githubData.location}
+        bio={githubData.bio}
+        public_gists={githubData.public_gists}
+        public_repos={githubData.public_repos}
+        followers={githubData.followers}
+        following={githubData.following}
+        created_at={githubData.created_at}
+        />
 
       </section>
 
