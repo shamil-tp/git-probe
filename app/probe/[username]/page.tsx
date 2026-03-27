@@ -11,7 +11,16 @@
 import ProfilePreview from "@/components/ProfilePreview"
 export default async function Probe({params}:{params:Promise<{username:string}>}) {
     const {username} = await params
-
+    const res = await fetch(`https://api.github.com/users/${username}`, {
+    next: { revalidate: 3600 } // Cache for 1 hour
+  });
+  if(!res.ok){
+    return (
+      <div>User not found on GitHub</div>
+    )
+  }
+  const githubData = await res.json()
+  console.log(githubData)
   return (
     <main className="min-h-screen bg-neutral-950 text-neutral-100">
 
@@ -22,7 +31,7 @@ export default async function Probe({params}:{params:Promise<{username:string}>}
       {/* Hero */}
       <section className="flex flex-col items-center justify-center text-center px-6 py-28 h-screen">
 
-        <ProfilePreview username={username}/>
+        <ProfilePreview username={githubData.login} />
 
       </section>
 

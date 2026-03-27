@@ -1,5 +1,21 @@
 import Image from "next/image"
-export default function ProfilePreview({username}:{username:string | null}) {
+import Link from "next/link"
+type Props = {
+  username: string | null,
+  name: string | null,
+  avatar_url: string | null,
+  html_url:string | null,
+  bio:string | null,
+  blog:string | null,
+  location:string | null,
+  followers:number,
+  following:number,
+  public_repo:number,
+  public_gists:number,
+
+}
+
+export default function ProfilePreview({username,name,avatar_url,html_url,bio,blog,location,followers,following,public_repo,public_gists}:Props) {
   return (
     <div className="max-w-3xl mx-auto bg-neutral-900 border border-neutral-800 rounded-xl p-7 mt-5">
 
@@ -16,18 +32,19 @@ export default function ProfilePreview({username}:{username:string | null}) {
           />
 
           <div>
-            <h2 className="text-xl font-semibold">{username?username:"The Octocat"}</h2>
+            <h2 className="text-xl font-semibold">{name?name:"The Octocat"}</h2>
             <p className="text-sm text-neutral-400">{username?"@"+username:"The Octocat"}</p>
 
-            <p className="text-sm text-neutral-400 mt-1">
-              Open source enthusiast • Developer
-            </p>
+            
+            {bio && <p className="text-sm text-neutral-400 mt-1">
+              {bio}
+            </p>}
           </div>
         </div>
 
-        <button className="px-4 py-2 text-sm bg-neutral-800 rounded-lg border border-neutral-700 hover:bg-neutral-700">
+        <Link className="px-4 py-2 text-sm bg-neutral-800 rounded-lg border border-neutral-700 hover:bg-neutral-700">
           View Profile
-        </button>
+        </Link>
 
       </div>
 
