@@ -1,129 +1,150 @@
 import Image from "next/image"
 import Link from "next/link"
-type Props = {
-  username: string | null,
-  name: string | null,
-  avatar_url: string,
-  html_url:string,
-  bio:string | null,
-  blog:string | null,
-  location:string | null,
-  followers:number,
-  following:number,
-  public_repos:number | string | null,
-  public_gists:number | string | null,
-  created_at:Date
 
+type Props = {
+  username: string | null
+  name: string | null
+  avatar_url: string
+  html_url: string
+  bio: string | null
+  blog: string | null
+  location: string | null
+  followers: number
+  following: number
+  public_repos: number | string | null
+  public_gists: number | string | null
+  created_at: Date
 }
 
-export default function ProfilePreview({username,name,avatar_url,html_url,bio,blog,location,followers,following,public_repos,public_gists,created_at}:Props) {
+export default function ProfilePreview({
+  username,
+  name,
+  avatar_url,
+  html_url,
+  bio,
+  blog,
+  location,
+  followers,
+  following,
+  public_repos,
+  public_gists,
+  created_at,
+}: Props) {
+
+  const compact = (n:number)=>
+    new Intl.NumberFormat("en-US",{notation:"compact"}).format(n)
+
+  const joined = new Date(created_at).getFullYear()
+
   return (
-    <div className="max-w-3xl mx-auto bg-neutral-900 border border-neutral-800 rounded-xl p-7 mt-5">
+    <div className="max-w-3xl mx-auto mt-8 bg-neutral-900 border border-neutral-800 rounded-xl p-6 space-y-6 shadow-sm">
 
-      {/* Profile Header */}
-      <div className="flex items-start justify-between my-6">
+      {/* PROFILE STRIP */}
+      <div className="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
 
-        <div className="flex items-center gap-4">
-          <Image
-            src={avatar_url}
-            alt="profile image"
-            className="rounded-full"
-            height={"64"}
-            width={"64"}
-          />
+        <Image
+          src={avatar_url}
+          alt="avatar"
+          width={72}
+          height={72}
+          className="rounded-full border border-neutral-700"
+        />
+
+        <div className="flex-1 text-center sm:text-left space-y-2">
 
           <div>
-            <h2 className="text-xl font-semibold">{name?name:"The Octocat"}</h2>
-            <p className="text-sm text-neutral-400">{username?"@"+username:"The Octocat"}</p>
+            <h2 className="text-lg font-semibold text-white">
+              {name ?? "The Octocat"}
+            </h2>
 
-            
-            {bio && <p className="text-sm text-neutral-400 mt-1">
-              {bio}
-            </p>}
+            <p className="text-sm text-neutral-400">
+              {username ? `@${username}` : "@octocat"}
+            </p>
           </div>
+
+          {bio && (
+            <p className="text-sm text-neutral-300 max-w-xl">
+              {bio}
+            </p>
+          )}
+
+          <div className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-1 text-xs text-neutral-500">
+
+            {location && <span>📍 {location}</span>}
+            {blog && <span className="text-blue-400">{blog}</span>}
+            <span>Joined {joined}</span>
+
+          </div>
+
         </div>
 
-        <Link href={html_url} className="px-4 py-2 text-sm bg-neutral-800 rounded-lg border border-neutral-700 hover:bg-neutral-700">
-          View Profile
-        </Link>
+        <Link
+  href={html_url}
+  className="group inline-flex items-center gap-2 text-sm px-3 py-1.5 border border-neutral-700 rounded-md text-neutral-300
+  hover:text-white hover:border-neutral-500 hover:shadow-[0_0_10px_rgba(255,255,255,0.08)]
+  transition-all duration-200"
+>
+  View Profile
+  <span className="transition-transform group-hover:translate-x-1">
+    →
+  </span>
+</Link>
 
       </div>
 
 
-      {/* Metadata */}
-      {/* <div className="flex justify-between items-end md:justify-center gap-6 text-sm text-neutral-400 mb-6"> */}
-      <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-neutral-400 mb-6">
-        {location?<p>{location}</p>:<p>Not Available</p>}
-        {blog?<p>{blog}</p>:<p>Not Available</p>}
-        {new Date(created_at).getFullYear()}
+      {/* STATS BAR */}
+      <div className="flex flex-wrap justify-between gap-3">
+
+        <Stat label="Repos" value={public_repos ?? 0} color="blue"/>
+        <Stat label="Gists" value={public_gists ?? 0} color="purple"/>
+        <Stat label="Followers" value={compact(followers)} color="emerald"/>
+        <Stat label="Following" value={compact(following)} color="amber"/>
+
       </div>
 
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      {/* REPOSITORIES HEADER */}
+      <div className="flex items-center justify-between border-t border-neutral-800 pt-4">
 
-  <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
-    <p className="text-xs text-neutral-500">Repositories</p>
-    <p className="text-xl font-semibold mt-1">{public_repos?public_repos:0}</p>
-  </div>
-
-  <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
-    <p className="text-xs text-neutral-500">Gists</p>
-    <p className="text-xl font-semibold mt-1">{public_gists?public_gists:0}</p>
-  </div>
-
-  <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
-    <p className="text-xs text-neutral-500">Followers</p>
-    <p className="text-xl font-semibold mt-1">{new Intl.NumberFormat('en-US', {
-  notation: 'compact',
-  maximumFractionDigits: 1
-}).format(followers)}</p>
-  </div>
-
-  <div className="bg-neutral-950 border border-neutral-800 rounded-lg p-4">
-    <p className="text-xs text-neutral-500">Following</p>
-    <p className="text-xl font-semibold mt-1">{new Intl.NumberFormat('en-US', {
-  notation: 'compact',
-  maximumFractionDigits: 1
-}).format(following)}</p>
-  </div>
-
-</div>
-
-
-      {/* Language usage */}
-      {/* <div className="mb-8">
-
-        <p className="text-sm text-neutral-400 mb-3">Top Languages</p>
-
-        <div className="flex h-3 rounded-full overflow-hidden">
-
-          <div className="bg-yellow-500 w-[40%]"></div>
-          <div className="bg-blue-500 w-[25%]"></div>
-          <div className="bg-green-500 w-[20%]"></div>
-          <div className="bg-purple-500 w-[15%]"></div>
-
-        </div>
-
-        <div className="flex justify-between text-xs text-neutral-400 mt-2">
-          <span>JavaScript</span>
-          <span>TypeScript</span>
-          <span>Go</span>
-          <span>Rust</span>
-        </div>
-
-      </div> */}
-
-
-      {/* Top repositories */}
-      <div>
-
-        <p className="text-sm text-neutral-400 mb-3">
-          <button className="px-4 py-2 text-sm bg-neutral-800 rounded-lg border border-neutral-700 hover:bg-neutral-700">
+        <p className="text-sm text-neutral-400">
           Top Repositories
-        </button>
         </p>
+
+        <button className="text-xs px-3 py-1 bg-neutral-800 border border-neutral-700 rounded-md hover:bg-neutral-700 transition">
+          View All
+        </button>
+
       </div>
+
+    </div>
+  )
+}
+
+
+function Stat({
+  label,
+  value,
+  color
+}:{label:string,value:string|number,color:"blue"|"purple"|"emerald"|"amber"}){
+
+  const colors = {
+    blue:"bg-blue-500/10 text-blue-400",
+    purple:"bg-purple-500/10 text-purple-400",
+    emerald:"bg-emerald-500/10 text-emerald-400",
+    amber:"bg-amber-500/10 text-amber-400"
+  }
+
+  return(
+    <div className={`flex flex-col items-center flex-1 rounded-lg p-3 ${colors[color]}`}>
+
+      <span className="text-lg font-semibold">
+        {value}
+      </span>
+
+      <span className="text-xs opacity-80">
+        {label}
+      </span>
 
     </div>
   )
