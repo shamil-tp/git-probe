@@ -1,5 +1,6 @@
-import RepoListItem from "@/components/RepoListItem"
+import RepoFilter from "@/components/RepoFilter"
 import Image from "next/image"
+import Link from "next/link"
 
 type Repo = {
   id: number
@@ -16,43 +17,67 @@ type Repo = {
   forks: number
 }
 
-async function getRepos(username:string,repo:number): Promise<Repo[]> {
-  const res = await fetch(`https://api.github.com/users/${username}/repos?per_page=${repo}`, {
-    cache: "no-store"
-  })
+async function getRepos(
+  username: string,
+  page: number,
+  perPage: number,
+  sort: string
+): Promise<Repo[]> {
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch repos")
-  }
+  const res = await fetch(
+    `https://api.github.com/users/${username}/repos?page=${page}&per_page=${perPage}&sort=${sort}`,
+    { cache: "no-store" }
+  )
+
+  if (!res.ok) throw new Error("Failed to fetch repos")
 
   return res.json()
 }
 
-export default async function Page({params}:{params:Promise<{username:string}>}) {
-  const {username}=await params
-  const response = await fetch(`https://api.github.com/users/${username}`)
-  if (!response.ok)return <div className="text-red-600 text-3xl flex justify-center items-center">Error finding user</div>
-  const user = await response.json()
-  const repos = await getRepos(username,user.public_repos)
+export default async function Page({
+  params,
+  searchParams
+}: {
+  params: Promise<{ username: string }>
+  searchParams: { page?: string; sort?: string }
+}) {
+
+  const { username } = await params
+  const page = Number(searchParams.page) || 1
+  const sort = searchParams.sort || "updated"
+  const perPage = 9
+
+  const userRes = await fetch(`https://api.github.com/users/${username}`)
+
+  if (!userRes.ok)
+    return (
+      <div className="text-red-500 text-3xl flex justify-center items-center min-h-screen">
+        User not found ..
+      </div>
+    )
+
+  const user = await userRes.json()
+
+  const repos = await getRepos(username, page, perPage, sort)
+
+  const totalPages = Math.ceil(user.public_repos / perPage)
+
   return (
     <main className="min-h-screen bg-neutral-950 text-white p-10">
 
-      {/* User Profile */}
+      {/* Profile */}
       <div className="flex items-center gap-6 mb-10">
 
         <Image
           src={user.avatar_url}
           alt={user.login}
-          className="w-20 h-20 rounded-full border border-neutral-800"
-          width={"20"}
-          height={"20"}
+          width={80}
+          height={80}
+          className="rounded-full border border-neutral-800"
         />
 
         <div>
-          <h1 className="text-3xl font-bold">
-            {user.login}
-          </h1>
-
+          <h1 className="text-3xl font-bold">{user.login}</h1>
           <p className="text-neutral-400">
             {user.public_repos} Public Repositories
           </p>
@@ -60,25 +85,59 @@ export default async function Page({params}:{params:Promise<{username:string}>})
 
       </div>
 
-      {/* Repo Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {/* Sort */}
+      <div className="mb-6 flex gap-4">
 
-        {repos.map(repo => (
-          <RepoListItem
-            key={repo.id}
-            name={repo.name}
-            full_name={repo.full_name}
-            html_url={repo.html_url}
-            description={repo.description}
-            created_at={new Date(repo.created_at)}
-            updated_at={new Date(repo.updated_at)}
-            size={repo.size}
-            stargazers_count={repo.stargazers_count}
-            language={repo.language}
-            open_issues={repo.open_issues}
-            forks={repo.forks}
-          />
-        ))}
+        <Link
+          href={`?sort=updated&page=1`}
+          className="px-3 py-1 border border-neutral-700 rounded hover:border-white"
+        >
+          Updated
+        </Link>
+
+        <Link
+          href={`?sort=created&page=1`}
+          className="px-3 py-1 border border-neutral-700 rounded hover:border-white"
+        >
+          Created
+        </Link>
+
+        <Link
+          href={`?sort=stars&page=1`}
+          className="px-3 py-1 border border-neutral-700 rounded hover:border-white"
+        >
+          Stars
+        </Link>
+
+      </div>
+
+      {/* Filter + Grid */}
+      <RepoFilter repos={repos} />
+
+      {/* Pagination */}
+      <div className="flex justify-center gap-4 mt-10">
+
+        {page > 1 && (
+          <Link
+            href={`?page=${page - 1}&sort=${sort}`}
+            className="px-4 py-2 border border-neutral-700 rounded hover:border-white"
+          >
+            Previous
+          </Link>
+        )}
+
+        <span className="text-neutral-400">
+          Page {page} / {totalPages}
+        </span>
+
+        {page < totalPages && (
+          <Link
+            href={`?page=${page + 1}&sort=${sort}`}
+            className="px-4 py-2 border border-neutral-700 rounded hover:border-white"
+          >
+            Next
+          </Link>
+        )}
 
       </div>
 
