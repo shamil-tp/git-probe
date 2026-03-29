@@ -111,9 +111,9 @@ export default function ProfilePreview({
           Top Repositories
         </p>
 
-        <button className="text-xs px-3 py-1 bg-neutral-800 border border-neutral-700 rounded-md hover:bg-neutral-700 transition">
+        <Link href={`/probe/${username}/repos`} className="text-xs px-3 py-1 bg-neutral-800 border border-neutral-700 rounded-md hover:bg-neutral-700 transition">
           View All
-        </button>
+        </Link>
 
       </div>
 

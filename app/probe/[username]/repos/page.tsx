@@ -16,8 +16,8 @@ type Repo = {
   forks: number
 }
 
-async function getRepos(username:string): Promise<Repo[]> {
-  const res = await fetch(`https://api.github.com/users/${username}/repos`, {
+async function getRepos(username:string,repo:number): Promise<Repo[]> {
+  const res = await fetch(`https://api.github.com/users/${username}/repos?per_page=${repo}`, {
     cache: "no-store"
   })
 
@@ -30,10 +30,10 @@ async function getRepos(username:string): Promise<Repo[]> {
 
 export default async function Page({params}:{params:Promise<{username:string}>}) {
   const {username}=await params
-  const repos = await getRepos(username)
   const response = await fetch(`https://api.github.com/users/${username}`)
   if (!response.ok)return <div className="text-red-600 text-3xl flex justify-center items-center">Error finding user</div>
   const user = await response.json()
+  const repos = await getRepos(username,user.public_repos)
   return (
     <main className="min-h-screen bg-neutral-950 text-white p-10">
 
