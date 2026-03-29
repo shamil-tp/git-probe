@@ -1,4 +1,5 @@
 import RepoListItem from "@/components/RepoListItem"
+import Image from "next/image"
 
 type Repo = {
   id: number
@@ -28,17 +29,38 @@ async function getRepos(username:string): Promise<Repo[]> {
 }
 
 export default async function Page({params}:{params:Promise<{username:string}>}) {
-  const username=await params
+  const {username}=await params
   const repos = await getRepos(username)
   const response = await fetch(`https://api.github.com/users/${username}`)
   if (!response.ok)return <div className="text-red-600 text-3xl flex justify-center items-center">Error finding user</div>
+  const user = await response.json()
   return (
     <main className="min-h-screen bg-neutral-950 text-white p-10">
 
-      <h1 className="text-3xl font-bold mb-8">
-        Shamil's Repositories
-      </h1>
+      {/* User Profile */}
+      <div className="flex items-center gap-6 mb-10">
 
+        <Image
+          src={user.avatar_url}
+          alt={user.login}
+          className="w-20 h-20 rounded-full border border-neutral-800"
+          width={"20"}
+          height={"20"}
+        />
+
+        <div>
+          <h1 className="text-3xl font-bold">
+            {user.login}
+          </h1>
+
+          <p className="text-neutral-400">
+            {user.public_repos} Public Repositories
+          </p>
+        </div>
+
+      </div>
+
+      {/* Repo Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 
         {repos.map(repo => (
