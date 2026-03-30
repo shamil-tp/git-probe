@@ -21,6 +21,7 @@ export default function SearchManager() {
           name={userData.name}
           avatar={userData.avatar}
           repos={userData.repos}
+          href={'/stats/'+userData.login}
         />
       )}
       

@@ -7,10 +7,11 @@ export const searchUser = async (formData: FormData) => {
     const response = await fetch(`https://api.github.com/users/${username}`, {
         headers: {
             'Accept': 'application/vnd.github+json',
-            'User-Agent': 'gitprobe-app' 
+            'User-Agent': 'gitprobe-app',
+            'Autherization':`Bearer ${process.env.GIT_HUB}`
         }
     })
-
+    console.log(response)
     if (!response.ok) return { error: "User not found" }
     
     const data= await response.json()

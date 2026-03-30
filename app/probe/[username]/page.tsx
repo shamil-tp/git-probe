@@ -12,6 +12,11 @@ import ProfilePreview from "@/components/ProfilePreview"
 export default async function Probe({params}:{params:Promise<{username:string}>}) {
     const {username} = await params
     const res = await fetch(`https://api.github.com/users/${username}`, {
+      headers: {
+            'Accept': 'application/vnd.github+json',
+            'User-Agent': 'gitprobe-app',
+            'Autherization':`Bearer ${process.env.GIT_HUB}`
+        },
     next: { revalidate: 3600 } // Cache for 1 hour
   });
   if(!res.ok){

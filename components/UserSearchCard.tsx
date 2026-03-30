@@ -5,7 +5,8 @@ type Props = {
   username: string
   name?: string
   avatar: string
-  repos: number
+  repos: number,
+  href: string,
 }
 
 export default function UserSearchCard({
@@ -13,6 +14,7 @@ export default function UserSearchCard({
   name,
   avatar,
   repos,
+  href,
 }: Props) {
   return (
     <Link href={`/probe/${username}`} className="max-w-xl mx-auto mt-5 flex items-center w-[90vw] md:w-auto justify-between gap-3 bg-neutral-900 border border-neutral-800 rounded-lg px-5 py-4 hover:border-neutral-700 transition">
@@ -52,6 +54,17 @@ export default function UserSearchCard({
         </p>
 
       </div>
+      <Link href={href} className="flex items-center gap-2 bg-neutral-950 border border-neutral-800 rounded-md px-3 py-1.5">
+
+        <p className="text-sm font-semibold">
+          {";)"}
+        </p>
+
+        <p className="text-xs text-neutral-500">
+          stats
+        </p>
+
+      </Link>
 
     </Link>
   )
