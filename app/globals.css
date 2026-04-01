@@ -13,58 +13,47 @@
   }
 }
 
-@keyframes loopBorder {
-    0%{
-        top: 0%;
-        left:0%;
-        height: 4px;
-        width:30px;
-    }
-    25%{
-        top: 0%;
-        left: 100%;
-        /* transform: translate(-50%,-50%); */
-        /* width: 4px;
-        height: 16px; */
-    }
-    26%{
-        width: 4px;
-        height: 16px;
-    }
-    50%{
-        top:100%;
-        left: 100%;
-        /* transform: translate(-50%,-50%); */
-        width: 4px;
-        height: 2px;
-    }
-    75%{
-        top:100%;
-        left: 0%;
-        width: 4px;
-        height: 16px;
-    }
-    100%{
-        top:0%;
-        left:0%;
-        width: 4px;
-        height: 4px;
-    }
-}
-
-.search-section::after{
-    z-index: 99;
-    width: max-content;
-    height: 4px;
-    content: '';
-    position: absolute;
-    top:0%;
-    left: 0%;
-    background-color: red;
-    animation: loopBorder 60s infinite ease forwards;
-}
 .search-section {
     position: relative;
     animation: slideIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+@keyframes borderFlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.search-section {
+  position: relative;
+  overflow: hidden; /* Keeps the glow inside the border area */
+  background: rgb(10, 10, 10); /* Match your bg-neutral-950 */
+  border-radius: 12px;
+}
+
+/* The Animated Gradient Background */
+.search-section::before {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: conic-gradient(
+    transparent, 
+    transparent, 
+    transparent, 
+    #3b82f6 /* blue-500 */
+  );
+  animation: borderFlow 4s linear infinite;
+  top: -25%;
+  left: -25%;
+  z-index: -1;
+}
+
+/* The "Mask" to make it look like a border */
+.search-section::after {
+  content: '';
+  position: absolute;
+  inset: 4px; /* This creates the 4px border thickness */
+  background: rgb(10, 10, 10);
+  border-radius: 8px;
+  z-index: -1;
+}
