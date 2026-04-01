@@ -44,6 +44,7 @@ export default async function Page({params}:{params:Promise<{username:string}>})
   })
   if (!response.ok)return <div className="text-red-600 text-3xl flex justify-center items-center">Error finding user</div>
   const user = await response.json()
+  // console.log(user)
   const repos = await getRepos(username,user.public_repos)
   return (
     <main className="min-h-screen bg-neutral-950 text-white p-10">
@@ -54,9 +55,9 @@ export default async function Page({params}:{params:Promise<{username:string}>})
         <Image
           src={user.avatar_url}
           alt={user.login}
-          className="w-20 h-20 rounded-full border border-neutral-800"
-          width={"20"}
-          height={"20"}
+          className="rounded-full border border-neutral-800"
+          width={"80"}
+          height={"80"}
         />
 
         <div>

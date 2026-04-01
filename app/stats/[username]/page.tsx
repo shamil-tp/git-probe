@@ -86,12 +86,13 @@ export default function GitHubAdvancedStats({ params }: { params: Promise<{ user
             {/* Identity Card */}
             <div className="bg-neutral-900 p-8 rounded-xl border border-neutral-800 flex flex-col items-center text-center">
               <Image
-                src={stats.profile.avatar_url} 
-                className="w-24 h-24 rounded-full border border-neutral-700 mb-4" 
-                alt="Avatar"
-                width={'24'}
-                height={'24'}
-              />
+  src={stats.profile.avatar_url} 
+  className="w-24 h-24 rounded-full border border-neutral-700 mb-4" 
+  alt={`${stats.profile.login}'s avatar`} // Better for accessibility
+  width={96}  // Matches w-24 (24 * 4px = 96px)
+  height={96} // Matches h-24 (24 * 4px = 96px)
+  priority    // Add this if the avatar is "above the fold" to load it faster
+/>
               <h2 className="text-xl font-bold">{stats.profile.name || stats.profile.login}</h2>
               <p className="text-blue-400 text-sm font-medium mb-3">{stats.persona}</p>
               <p className="text-neutral-400 text-xs italic line-clamp-2">
