@@ -17,43 +17,52 @@
     position: relative;
     animation: slideIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
 @keyframes borderFlow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .search-section {
   position: relative;
-  overflow: hidden; /* Keeps the glow inside the border area */
-  background: rgb(10, 10, 10); /* Match your bg-neutral-950 */
+  overflow: hidden;
+  background: rgb(10, 10, 10);
   border-radius: 12px;
+  z-index: 0; /* Creates a clean stacking context */
 }
 
-/* The Animated Gradient Background */
+/* The Animated Gradient */
 .search-section::before {
   content: '';
   position: absolute;
-  width: 150%;
-  height: 150%;
+  /* Use fixed aspect ratio and centered positioning */
+  width: 200%; 
+  height: 200%;
+  aspect-ratio: 1/1;
+  
+  /* Use a softer gradient for a professional look */
   background: conic-gradient(
-    transparent, 
-    transparent, 
-    transparent, 
-    #3b82f6 /* blue-500 */
+    from 0deg,
+    transparent 70%,
+    #3b82f6 90%,
+    #60a5fa 100%
   );
-  animation: borderFlow 4s linear infinite;
-  top: -25%;
-  left: -25%;
-  z-index: -1;
+  
+  /* Critical for smoothness */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform; 
+  animation: borderFlow 3s linear infinite;
+  z-index: -2;
 }
 
-/* The "Mask" to make it look like a border */
+/* The Mask */
 .search-section::after {
   content: '';
   position: absolute;
-  inset: 4px; /* This creates the 4px border thickness */
+  /* Using inset: 2px makes it look sharper than 4px */
+  inset: 2px; 
   background: rgb(10, 10, 10);
-  border-radius: 8px;
+  border-radius: 10px;
   z-index: -1;
 }
