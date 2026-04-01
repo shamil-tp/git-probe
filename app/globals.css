@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@keyframes slideIn {
+/* @keyframes slideIn {
   from {
     opacity: 0;
     filter: blur(10px);
@@ -16,53 +16,23 @@
 .search-section {
     position: relative;
     animation: slideIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes borderFlow {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
+} */
 .search-section {
   position: relative;
-  overflow: hidden;
   background: rgb(10, 10, 10);
-  border-radius: 12px;
-  z-index: 0; /* Creates a clean stacking context */
+  border-radius: 1px;
+  /* Use a standard border but colored with a gradient */
+  border: 1px solid transparent;
+  background-image: linear-gradient(rgb(10, 10, 10), rgb(10, 10, 10)), 
+                    linear-gradient(to right, #1e293b, #3b82f6, #1e293b);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  
+  /* The "Smooth" part: a soft shadow pulse */
+  box-shadow: 0 0 20px -10px rgba(59, 130, 246, 0.3);
+  transition: box-shadow 0.5s ease-in-out;
 }
 
-/* The Animated Gradient */
-.search-section::before {
-  content: '';
-  position: absolute;
-  /* Use fixed aspect ratio and centered positioning */
-  width: 200%; 
-  height: 200%;
-  aspect-ratio: 1/1;
-  
-  /* Use a softer gradient for a professional look */
-  background: conic-gradient(
-    from 0deg,
-    transparent 70%,
-    #3b82f6 90%,
-    #60a5fa 100%
-  );
-  
-  /* Critical for smoothness */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  will-change: transform; 
-  animation: borderFlow 3s linear infinite;
-  z-index: -2;
-}
-
-/* The Mask */
-.search-section::after {
-  content: '';
-  position: absolute;
-  /* Using inset: 2px makes it look sharper than 4px */
-  inset: 2px; 
-  background: rgb(10, 10, 10);
-  border-radius: 10px;
-  z-index: -1;
+.search-section:hover {
+  box-shadow: 0 0 30px -5px rgba(59, 130, 246, 0.5);
 }
