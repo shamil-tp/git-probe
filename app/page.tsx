@@ -18,7 +18,7 @@ export default function Home() {
 
 
       {/* Hero */}
-      <section className="flex flex-col items-center justify-center border-4 border-blue-200 text-center h-screen">
+      <section className="flex flex-col items-center justify-center border-4 border-blue-200 text-center h-screen search-section">
 
         <h1 className="text-5xl md:text-6xl font-bold tracking-tight max-w-3xl">
           Probe GitHub Profiles

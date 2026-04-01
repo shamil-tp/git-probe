@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function GitHubAdvancedStats({ params }: { params: Promise<{ username: string }> }) {
   const [stats, setStats] = useState<any>(null);
@@ -84,10 +85,12 @@ export default function GitHubAdvancedStats({ params }: { params: Promise<{ user
             
             {/* Identity Card */}
             <div className="bg-neutral-900 p-8 rounded-xl border border-neutral-800 flex flex-col items-center text-center">
-              <img 
+              <Image
                 src={stats.profile.avatar_url} 
                 className="w-24 h-24 rounded-full border border-neutral-700 mb-4" 
                 alt="Avatar"
+                width={'24'}
+                height={'24'}
               />
               <h2 className="text-xl font-bold">{stats.profile.name || stats.profile.login}</h2>
               <p className="text-blue-400 text-sm font-medium mb-3">{stats.persona}</p>
